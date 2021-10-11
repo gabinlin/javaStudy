@@ -1,23 +1,19 @@
 package top.gabin.socket;
 
-import sun.nio.ch.ThreadPool;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.function.Function;
 
+/**
+ * 1、封装对象
+ */
 public class Step1Server {
 
     private ServerSocket serverSocket;
-    private ExecutorService executorService;
     private final Function<String, String> handler;
 
     public Step1Server(Function<String, String> handler) {
-        executorService = Executors.newCachedThreadPool();
         this.handler = handler;
     }
 
@@ -33,23 +29,17 @@ public class Step1Server {
         // Blocking...
         // Thread--->Sleep--->Other Socket\
         Socket accept = serverSocket.accept();
-        executorService.submit(() -> {
-            try {
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(accept.getInputStream()));
-                String line;
-                StringBuilder requestBody = new StringBuilder();
-                while (!(line = bufferedReader.readLine()).isEmpty()) {
-                    requestBody.append(line).append("\n");
-                }
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(accept.getOutputStream()));
-                String responseBody = this.handler.apply(requestBody.toString());
-                writer.write(responseBody);
-                writer.flush();
-                accept.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(accept.getInputStream()));
+        String line;
+        StringBuilder requestBody = new StringBuilder();
+        while (!(line = bufferedReader.readLine()).isEmpty()) {
+            requestBody.append(line).append("\n");
+        }
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(accept.getOutputStream()));
+        String responseBody = this.handler.apply(requestBody.toString());
+        writer.write(responseBody);
+        writer.flush();
+        accept.close();
     }
 
     public static void main(String[] args) throws IOException {
