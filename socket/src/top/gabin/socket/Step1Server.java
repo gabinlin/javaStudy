@@ -30,7 +30,7 @@ public class Step1Server {
         String line;
         StringBuilder requestBody = new StringBuilder();
         while (!(line = bufferedReader.readLine()).isEmpty()) {
-            requestBody.append(line);
+            requestBody.append(line).append("\n");
         }
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(accept.getOutputStream()));
         String responseBody = this.handler.apply(requestBody.toString());
@@ -40,7 +40,10 @@ public class Step1Server {
     }
 
     public static void main(String[] args) throws IOException {
-        new Step1Server(req -> "HTTP/1.1 200 ok\n\nHello World\n").listen(8080);
+        new Step1Server(req -> {
+            System.out.println(req);
+            return "HTTP/1.1 200 ok\n\nHello World\n";
+        }).listen(8080);
     }
 
 
