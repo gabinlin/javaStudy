@@ -22,6 +22,7 @@ public class Step2Server {
     }
 
     // pending queue
+    @SuppressWarnings("InfiniteLoopStatement")
     public void listen(int port) throws IOException {
         serverSocket = new ServerSocket(port);
         while (true) {

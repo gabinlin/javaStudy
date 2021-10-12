@@ -3,14 +3,20 @@ package top.gabin.socket;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.channels.*;
-import java.util.Iterator;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.util.Set;
 
 public class Step4Server {
     private ServerSocketChannel ssc;
 
+    @SuppressWarnings("InfiniteLoopStatement")
     public void listen(int port) throws IOException {
+        if (ssc != null) {
+            throw new UnsupportedOperationException("不能重复启动");
+        }
         ssc = ServerSocketChannel.open();
         ssc.bind(new InetSocketAddress(port));
 
@@ -26,9 +32,7 @@ public class Step4Server {
             int numOfKeys = selector.select();
             System.out.println(numOfKeys);
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
-            Iterator<SelectionKey> iterator = selectionKeys.iterator();
-            while (iterator.hasNext()) {
-                SelectionKey key = iterator.next();
+            for (SelectionKey key : selectionKeys) {
                 if (key.isAcceptable()) {
                     SocketChannel channel = ssc.accept();
                     if (channel == null) {
@@ -41,7 +45,7 @@ public class Step4Server {
 
                     byteBuffer.clear();
                     channel.read(byteBuffer);
-                    String request = new String (byteBuffer.array());
+                    String request = new String(byteBuffer.array());
                     System.out.println(request);
                     byteBuffer.clear();
                     byteBuffer.put("HTTP/1.1 200 ok\n\nHello NIO\n".getBytes());

@@ -5,7 +5,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.function.BiConsumer;
 
 /**
  * 2、优化线程
@@ -22,6 +21,7 @@ public class Step3Server {
     }
 
     // pending queue
+    @SuppressWarnings("InfiniteLoopStatement")
     public void listen(int port) throws IOException {
         serverSocket = new ServerSocket(port);
         while (true) {
