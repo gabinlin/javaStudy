@@ -1,4 +1,4 @@
-package top.gabin.springBoot.servlet;
+package top.gabin.springBoot.javaee.servlet;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
