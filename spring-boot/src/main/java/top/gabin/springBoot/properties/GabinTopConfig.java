@@ -12,6 +12,7 @@ public class GabinTopConfig {
     private String name;
     @Email
     private String mail;
+    private String securityKey;
 
     public String getName() {
         return name;
@@ -29,11 +30,20 @@ public class GabinTopConfig {
         this.mail = mail;
     }
 
+    public String getSecurityKey() {
+        return securityKey;
+    }
+
+    public void setSecurityKey(String securityKey) {
+        this.securityKey = securityKey;
+    }
+
     @Override
     public String toString() {
         return "GabinTopConfig{" +
                 "name='" + name + '\'' +
                 ", mail='" + mail + '\'' +
+                ", securityKey='" + securityKey + '\'' +
                 '}';
     }
 }
