@@ -2,8 +2,11 @@ package top.gabin.springBoot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
+// 自动扫描Servlet
+//@ServletComponentScan
 public class Application {
 
     public static void main(String[] args) {
