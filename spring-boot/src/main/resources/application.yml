@@ -1,0 +1,6 @@
+# 优先级4
+top:
+  gabin:
+    # idea中，file encoding需要配置一下配置文件的编码，避免乱码
+    name: '林嘉斌'
+    mail: 405424652@qq.com
