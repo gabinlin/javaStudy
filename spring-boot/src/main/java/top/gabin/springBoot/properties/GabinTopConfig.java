@@ -1,12 +1,16 @@
 package top.gabin.springBoot.properties;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 @ConfigurationProperties("top.gabin")
 @Component
+@Validated
 public class GabinTopConfig {
     private String name;
+    @Email
     private String mail;
 
     public String getName() {
