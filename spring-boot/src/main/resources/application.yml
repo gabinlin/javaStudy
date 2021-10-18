@@ -8,3 +8,6 @@ top:
 server:
   # 如果是微服务架构，是不关心端口号的，随机取个端口号也是可以的
   port: ${random.int(8080,10000)}
+spring:
+  messages:
+    basename: i18n/login

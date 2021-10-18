@@ -1,9 +1,10 @@
 package top.gabin.springBoot.properties;
 
-import org.hibernate.validator.constraints.Email;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.Email;
 
 @ConfigurationProperties("top.gabin")
 @Component
